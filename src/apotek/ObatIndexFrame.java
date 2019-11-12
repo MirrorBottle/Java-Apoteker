@@ -9,6 +9,8 @@ package apotek;
 import apotek.ApotekerCreateFrame;
 import apotek.ApotekerEditFrame;
 
+//Obat Frame
+import apotek.ObatCreateFrame;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -40,7 +42,7 @@ public class ObatIndexFrame extends javax.swing.JFrame {
         table.addColumn("Komposisi Obat");
         table.addColumn("Merk Obat");
         table.addColumn("Dosis Obat");
-        table.addColumn("Tanggal Kadaluwarsa");
+        table.addColumn("Satuan");
         obatDataTable.setModel(table);
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
@@ -55,7 +57,7 @@ public class ObatIndexFrame extends javax.swing.JFrame {
                     result.getString("komposisi_obat"),
                     result.getString("merk_obat"),
                     result.getString("dosis_obat"),
-                    result.getString("tanggal_kadaluwarsa")
+                    result.getString("satuan")
                 });
                 i++;
                 obatDataTable.setModel(table);
