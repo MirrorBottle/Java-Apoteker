@@ -133,7 +133,7 @@ public class ObatEditFrame extends javax.swing.JFrame {
         jLabel1.setText("Manajemen Obat");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        jLabel2.setText("Tambah Data Obat");
+        jLabel2.setText("Ubah Data Obat");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
         jLabel3.setText("Nama : ");
@@ -168,7 +168,7 @@ public class ObatEditFrame extends javax.swing.JFrame {
         jLabel8.setText("Satuan : ");
 
         submit_btn.setFont(new java.awt.Font("Calibri", 0, 28)); // NOI18N
-        submit_btn.setText("Tambah");
+        submit_btn.setText("Ubah");
         submit_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submit_btnActionPerformed(evt);

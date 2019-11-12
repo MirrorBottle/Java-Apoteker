@@ -232,13 +232,14 @@ public class ObatIndexFrame extends javax.swing.JFrame {
         if (obatDataTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
-            int choice = JOptionPane.showConfirmDialog(null, "Data yang dihapus tidak bisa dikembalikan kembali. Yakin?");
+            int choice = JOptionPane.showConfirmDialog(null, "Data yang dihapus tidak bisa dikembalikan kembali.\nData obat yang ada di gudang akan dihapus juga. Yakin?");
             if (choice == 0) {
                 try {
                     con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                     statement = con.createStatement();
-                    statement.executeUpdate("DELETE FROM `apoteker` WHERE `apoteker`.`id_apoteker` = " + Integer.valueOf(String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 1))));
-                    JOptionPane.showMessageDialog(null, "Data apoteker telah dihapus");
+                    statement.executeUpdate("DELETE FROM `gudang` WHERE `gudang`.`id_obat` = " + Integer.valueOf(String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 1))));
+                    statement.executeUpdate("DELETE FROM `obat` WHERE `obat`.`id_obat` = " + Integer.valueOf(String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 1))));
+                    JOptionPane.showMessageDialog(null, "Data obat telah dihapus");
                     dataTable();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Connection error : " + e);

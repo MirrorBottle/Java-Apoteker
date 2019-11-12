@@ -5,6 +5,7 @@
  */
 package apotek;
 
+import static apotek.GudangIndexFrame.date;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,10 @@ public class ObatCreateFrame extends javax.swing.JFrame {
     static Connection con;
     static Statement statement;
     static ResultSet result;
+    static java.util.Date date = new java.util.Date();
+
+    //Add To Gudang
+    static ResultSet gudang_result;
 
     /**
      * Creates new form dashboardFrame
@@ -72,6 +77,7 @@ public class ObatCreateFrame extends javax.swing.JFrame {
         compotition_invalid_text = new javax.swing.JLabel();
         dosis_spinner = new javax.swing.JSpinner();
         merk_invalid_text = new javax.swing.JLabel();
+        add_to_gudang_checkbox = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,6 +194,10 @@ public class ObatCreateFrame extends javax.swing.JFrame {
         merk_invalid_text.setForeground(new java.awt.Color(243, 36, 36));
         merk_invalid_text.setText("                                  ");
 
+        add_to_gudang_checkbox.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        add_to_gudang_checkbox.setSelected(true);
+        add_to_gudang_checkbox.setText("Sekalian Menambahkan Data Ke Gudang");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -230,7 +240,8 @@ public class ObatCreateFrame extends javax.swing.JFrame {
                                                 .addComponent(dosis_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addComponent(compotition_invalid_text)
                                 .addComponent(merk_invalid_text))
-                            .addGap(11, 11, 11))))
+                            .addGap(11, 11, 11)))
+                    .addComponent(add_to_gudang_checkbox))
                 .addContainerGap(201, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -271,9 +282,11 @@ public class ObatCreateFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(satuan_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(61, 61, 61)
+                .addGap(18, 18, 18)
+                .addComponent(add_to_gudang_checkbox)
+                .addGap(19, 19, 19)
                 .addComponent(submit_btn)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();
@@ -292,6 +305,7 @@ public class ObatCreateFrame extends javax.swing.JFrame {
         } else if (composition_textarea.getText().equals("")) {
             compotition_invalid_text.setText("Komposisi wajib diisi!");
         } else {
+
             this.clearValidation();
             String nama_obat = name_textbox.getText();
             String merk_obat = merk_textbox.getText();
@@ -304,12 +318,22 @@ public class ObatCreateFrame extends javax.swing.JFrame {
                 result = statement.executeQuery("SELECT * FROM obat WHERE nama_obat = '" + nama_obat + "'");
                 if (result.next()) {
                     name_textbox.setText("");
-                    name_invalid_text.setText("Email Sudah Terdaftar!");
+                    name_invalid_text.setText("Obat Sudah Terdaftar!");
                 } else {
                     statement.executeUpdate("INSERT INTO `obat` (`id_obat`, `nama_obat`, `komposisi_obat`, `merk_obat`, `dosis_obat`, `satuan`) VALUES (NULL, '" + nama_obat + "', '" + komposisi_obat + "', '" + merk_obat + "', '" + dosis_obat + "', '" + satuan_obat + "');");
+                    if (add_to_gudang_checkbox.isSelected()) {
+                        String today_date = (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
+                        try {
+                            gudang_result = statement.executeQuery("SELECT * FROM obat WHERE nama_obat = '" + nama_obat + "'");
+                            if (gudang_result.next()) {
+                                statement.executeUpdate("INSERT INTO `gudang` (`id_penyimpanan`, `id_obat`, `stock`, `penambahan_terakhir`, `pengambilan_terakhir`) VALUES (NULL, '" + gudang_result.getString("id_obat") + "', '0', '" + today_date + "', '" + today_date + "');");
+                            }
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "Connection error" + e);
+                        }
+                    }
                     JOptionPane.showMessageDialog(null, "Tambah data obat berhasil");
                     clearAll();
-
                 }
 
             } catch (Exception e) {
@@ -344,6 +368,7 @@ public class ObatCreateFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox add_to_gudang_checkbox;
     private javax.swing.JButton back_btn;
     private javax.swing.JTextArea composition_textarea;
     private javax.swing.JLabel compotition_invalid_text;
