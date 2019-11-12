@@ -21,7 +21,6 @@ import java.util.Date;
 public class GudangIndexFrame extends javax.swing.JFrame {
 
     static Date date = new Date();
-    static java.sql.Date mysqlDate;
     static Connection con;
     static Statement statement;
     static ResultSet result;
@@ -31,7 +30,7 @@ public class GudangIndexFrame extends javax.swing.JFrame {
     //Update Stock Statement;
     static Statement stock_statement;
     //Original Stock
-    static int originalStock;
+    static int original_stock;
 
     /**
      * Creates new form dashboardFrame
@@ -50,19 +49,16 @@ public class GudangIndexFrame extends javax.swing.JFrame {
         decrease_stock_btn.setEnabled(false);
     }
 
-    private void setOriginalStock() {
-
-    }
-
     private void setDataToUpdateStock() {
+
         increase_stock_btn.setEnabled(true);
         decrease_stock_btn.setEnabled(true);
         String name = String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 2));
         String id_penyimpanan = String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 1));
         String[] stock = String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 3)).split(" ", 2);
+        original_stock = Integer.valueOf(stock[0]);
         obat_name_text.setText(name);
         id_penyimpanan_text.setText(id_penyimpanan);
-        stockSpinner.setValue(Integer.valueOf(stock[0]));
     }
 
     public void dataTable() {
@@ -204,7 +200,7 @@ public class GudangIndexFrame extends javax.swing.JFrame {
         obat_name_label.setText("ID Penyimpanan : ");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel3.setText("Penambahan Stock :");
+        jLabel3.setText("Jumlah :");
 
         obat_name_text.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         obat_name_text.setText("                                     ");
@@ -262,7 +258,7 @@ public class GudangIndexFrame extends javax.swing.JFrame {
                                         .addGap(6, 6, 6)
                                         .addComponent(jumlah_text))
                                     .addComponent(change_stock_btn))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 522, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 610, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -324,13 +320,13 @@ public class GudangIndexFrame extends javax.swing.JFrame {
     private void increase_stock_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_increase_stock_btnActionPerformed
         // TODO add your handling code here:
         int id_penyimpanan = Integer.valueOf(id_penyimpanan_text.getText());
-        int stock = Integer.valueOf(String.valueOf(stockSpinner.getValue()));
-
+        int increase_stock = Integer.valueOf(String.valueOf(stockSpinner.getValue()));
+        int current_stock = original_stock + increase_stock;
         String todayDate = (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
             stock_statement = con.createStatement();
-            stock_statement.executeUpdate("UPDATE `gudang` SET `stock` = '" + stock + "', penambahan_terakhir = '" + todayDate + "' WHERE `gudang`.`id_penyimpanan` = " + id_penyimpanan);
+            stock_statement.executeUpdate("UPDATE `gudang` SET `stock` = '" + current_stock + "', penambahan_terakhir = '" + todayDate + "' WHERE `gudang`.`id_penyimpanan` = " + id_penyimpanan);
             this.clearDataToUpdateStock();
             JOptionPane.showMessageDialog(null, "Stock obat berhasil ditambahkan");
             dataTable();
@@ -351,17 +347,23 @@ public class GudangIndexFrame extends javax.swing.JFrame {
     private void decrease_stock_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decrease_stock_btnActionPerformed
         // TODO add your handling code here:
         int id_penyimpanan = Integer.valueOf(id_penyimpanan_text.getText());
-        int stock = Integer.valueOf(String.valueOf(stockSpinner.getValue()));
-        String todayDate = (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
-            stock_statement = con.createStatement();
-            stock_statement.executeUpdate("UPDATE `gudang` SET `stock` = '" + stock + "', pengambilan_terakhir = '" + todayDate + "' WHERE `gudang`.`id_penyimpanan` = " + id_penyimpanan);
-            this.clearDataToUpdateStock();
-            JOptionPane.showMessageDialog(null, "Stock obat berhasil dikurangkan");
-            dataTable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Connection error : " + e);
+        int decrease_stock = Integer.valueOf(String.valueOf(stockSpinner.getValue()));
+        if (original_stock > decrease_stock) {
+            int current_stock = original_stock - decrease_stock;
+            String todayDate = (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
+            try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
+                stock_statement = con.createStatement();
+                stock_statement.executeUpdate("UPDATE `gudang` SET `stock` = '" + current_stock + "', pengambilan_terakhir = '" + todayDate + "' WHERE `gudang`.`id_penyimpanan` = " + id_penyimpanan);
+                this.clearDataToUpdateStock();
+                JOptionPane.showMessageDialog(null, "Stock obat berhasil dikurangkan");
+                dataTable();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Connection error : " + e);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Pengurangan stock lebih daripada stock yang ada!");
         }
     }//GEN-LAST:event_decrease_stock_btnActionPerformed
 

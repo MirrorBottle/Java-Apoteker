@@ -35,13 +35,13 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
         int i = 1;
         DefaultTableModel table = new DefaultTableModel();
         table.addColumn("No.");
-        table.addColumn("Apoteker ID");
+        table.addColumn("Agen ID");
         table.addColumn("Nama");
         table.addColumn("Alamat");
         table.addColumn("Email");
         table.addColumn("No. Telp");
         table.addColumn("Jenis Kelamin");
-        apotekerDataTable.setModel(table);
+        apoteker_data_table.setModel(table);
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
             statement = con.createStatement();
@@ -58,7 +58,7 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
                     result.getString("jenis_kelamin")
                 });
                 i++;
-                apotekerDataTable.setModel(table);
+                apoteker_data_table.setModel(table);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Connection error : " + e);
@@ -83,7 +83,7 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
         hapus_apoteker_btn = new javax.swing.JButton();
         tambah_apoteker_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        apotekerDataTable = new javax.swing.JTable();
+        apoteker_data_table = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,8 +155,8 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
             }
         });
 
-        apotekerDataTable.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        apotekerDataTable.setModel(new javax.swing.table.DefaultTableModel(
+        apoteker_data_table.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        apoteker_data_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -167,7 +167,7 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(apotekerDataTable);
+        jScrollPane1.setViewportView(apoteker_data_table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,11 +208,11 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
 
     private void ubah_apoteker_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubah_apoteker_btnActionPerformed
         // TODO add your handling code here:
-        if (apotekerDataTable.getSelectedRow() == -1) {
+        if (apoteker_data_table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
             ApotekerEditFrame editApoteker = new ApotekerEditFrame();
-            editApoteker.setId(String.valueOf(apotekerDataTable.getValueAt(apotekerDataTable.getSelectedRow(), 1)));
+            editApoteker.setId(String.valueOf(apoteker_data_table.getValueAt(apoteker_data_table.getSelectedRow(), 1)));
             editApoteker.setDefaultData();
             editApoteker.setVisible(true);
             this.dispose();
@@ -220,7 +220,7 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ubah_apoteker_btnActionPerformed
 
     private void hapus_apoteker_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapus_apoteker_btnActionPerformed
-        if (apotekerDataTable.getSelectedRow() == -1) {
+        if (apoteker_data_table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
             int choice = JOptionPane.showConfirmDialog(null, "Data yang dihapus tidak bisa dikembalikan kembali. Yakin?");
@@ -228,7 +228,7 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
                 try {
                     con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                     statement = con.createStatement();
-                    statement.executeUpdate("DELETE FROM `apoteker` WHERE `apoteker`.`id_apoteker` = " + Integer.valueOf(String.valueOf(apotekerDataTable.getValueAt(apotekerDataTable.getSelectedRow(), 1))));
+                    statement.executeUpdate("DELETE FROM `apoteker` WHERE `apoteker`.`id_apoteker` = " + Integer.valueOf(String.valueOf(apoteker_data_table.getValueAt(apoteker_data_table.getSelectedRow(), 1))));
                     JOptionPane.showMessageDialog(null, "Data apoteker telah dihapus");
                     dataTable();
                 } catch (Exception e) {
@@ -285,7 +285,7 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable apotekerDataTable;
+    private javax.swing.JTable apoteker_data_table;
     private javax.swing.JButton hapus_apoteker_btn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
