@@ -6,8 +6,8 @@
 package apotek;
 
 //Apoteker Frame
-import apotek.ApotekerCreateFrame;
-import apotek.ApotekerEditFrame;
+import apotek.ObatCreateFrame;
+import apotek.ObatEditFrame;
 
 //Obat Frame
 import apotek.ObatCreateFrame;
@@ -220,10 +220,10 @@ public class ObatIndexFrame extends javax.swing.JFrame {
         if (obatDataTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
-            ApotekerEditFrame editApoteker = new ApotekerEditFrame();
-            editApoteker.setId(String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 1)));
-            editApoteker.setDefaultData();
-            editApoteker.setVisible(true);
+            ObatEditFrame editObat = new ObatEditFrame();
+            editObat.setId(String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 1)));
+            editObat.setDefaultData();
+            editObat.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_ubah_obat_btnActionPerformed
@@ -250,7 +250,7 @@ public class ObatIndexFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_hapus_obat_btnActionPerformed
 
     private void tambah_obat_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambah_obat_btnActionPerformed
-        new ApotekerCreateFrame().setVisible(true);
+        new ObatCreateFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_tambah_obat_btnActionPerformed
 

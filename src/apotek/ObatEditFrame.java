@@ -5,6 +5,7 @@
  */
 package apotek;
 
+import static apotek.ApotekerEditFrame.con;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,24 +15,43 @@ import apotek.ObatIndexFrame;
  *
  * @author BAYU
  */
-public class ObatCreateFrame extends javax.swing.JFrame {
+public class ObatEditFrame extends javax.swing.JFrame {
 
     static Connection con;
     static Statement statement;
     static ResultSet result;
+    private static int id;
 
     /**
      * Creates new form dashboardFrame
      */
-    public ObatCreateFrame() {
+    public ObatEditFrame() {
         initComponents();
     }
 
-    private void clearAll() {
-        name_textbox.setText("");
-        merk_textbox.setText("");
-        dosis_spinner.setValue(0);
-        composition_textarea.setText("");
+    public void setDefaultData() {
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
+            statement = con.createStatement();
+            result = statement.executeQuery("SELECT * FROM obat WHERE id_obat = " + this.id);
+            if (result.next()) {
+                String[] dosis = result.getString("dosis_obat").split(" x ", 2);
+                name_textbox.setText(result.getString("nama_obat"));
+                composition_textarea.setText(result.getString("komposisi_obat"));
+                merk_textbox.setText(result.getString("merk_obat"));
+                dosis_spinner.setValue(Integer.valueOf(dosis[0]));
+                dosis_comboBox.setSelectedItem(String.valueOf(dosis[1]));
+                satuan_comboBox.setSelectedItem(result.getString("satuan"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Data apoteker tidak ada! id = " + this.id);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Connection error : " + e);
+        }
+    }
+
+    public void setId(String id) {
+        this.id = Integer.valueOf(id);
     }
 
     private void clearValidation() {
@@ -134,7 +154,7 @@ public class ObatCreateFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(composition_textarea);
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
-        jLabel6.setText("No Telp :");
+        jLabel6.setText("Dosis :");
 
         satuan_comboBox.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         satuan_comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tablet", "Keping", "Ampul", "Botol", "Pen", "Vial", "Tube", "Supp" }));
@@ -301,16 +321,10 @@ public class ObatCreateFrame extends javax.swing.JFrame {
             try {
                 con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                 statement = con.createStatement();
-                result = statement.executeQuery("SELECT * FROM obat WHERE nama_obat = '" + nama_obat + "'");
-                if (result.next()) {
-                    name_textbox.setText("");
-                    name_invalid_text.setText("Email Sudah Terdaftar!");
-                } else {
-                    statement.executeUpdate("INSERT INTO `obat` (`id_obat`, `nama_obat`, `komposisi_obat`, `merk_obat`, `dosis_obat`, `satuan`) VALUES (NULL, '" + nama_obat + "', '" + komposisi_obat + "', '" + merk_obat + "', '" + dosis_obat + "', '" + satuan_obat + "');");
-                    JOptionPane.showMessageDialog(null, "Tambah data obat berhasil");
-                    clearAll();
-
-                }
+                statement.executeUpdate("UPDATE `obat` SET `nama_obat` = '" + nama_obat + "', `komposisi_obat` = '" + komposisi_obat + "', `merk_obat` = '" + merk_obat + "', `dosis_obat` = '" + dosis_obat + "', `satuan` = '" + satuan_obat + "' WHERE `obat`.`id_obat` = " + this.id + ";");
+                JOptionPane.showMessageDialog(null, "Ubah data obat berhasil");
+                new ObatIndexFrame().setVisible(true);
+                this.dispose();
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Connection error" + e);
@@ -338,7 +352,7 @@ public class ObatCreateFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new ObatCreateFrame().setVisible(true);
+                new ObatEditFrame().setVisible(true);
             }
         });
     }
