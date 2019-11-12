@@ -3,15 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/dashboardTemplate.java</file>
-            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/RegisterFrame.java</file>
+            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/PengirimanIndexFrame.java</file>
+            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/ObatCreateFrame.java</file>
+            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/ObatEditFrame.java</file>
             <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/ObatIndexFrame.java</file>
-            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/LoginFrame.java</file>
             <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/GudangIndexFrame.java</file>
-            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/ApotekerCreateFrame.java</file>
-            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/GudangEditFrame.java</file>
-            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/ApotekerIndexFrame.java</file>
-            <file>file:/C:/Users/BAYU/Documents/NetBeansProjects/Apotek/src/apotek/ApotekerEditFrame.java</file>
         </group>
     </open-files>
 </project-private>
