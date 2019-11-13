@@ -43,6 +43,7 @@ public class ObatIndexFrame extends javax.swing.JFrame {
         table.addColumn("Merk Obat");
         table.addColumn("Dosis Obat");
         table.addColumn("Satuan");
+        table.addColumn("Harga");
         obatDataTable.setModel(table);
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
@@ -57,7 +58,8 @@ public class ObatIndexFrame extends javax.swing.JFrame {
                     result.getString("komposisi_obat"),
                     result.getString("merk_obat"),
                     result.getString("dosis_obat"),
-                    result.getString("satuan")
+                    result.getString("satuan"),
+                    "Rp. " + result.getString("harga")
                 });
                 i++;
                 obatDataTable.setModel(table);

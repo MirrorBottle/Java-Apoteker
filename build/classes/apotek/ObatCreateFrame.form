@@ -91,7 +91,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="harga_spinner" min="-2" pref="52" max="-2" attributes="0"/>
+                      <Component id="harga_spinner" min="-2" pref="144" max="-2" attributes="0"/>
                   </Group>
                   <Component id="submit_btn" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
                   <Component id="add_to_gudang_checkbox" min="-2" max="-2" attributes="0"/>

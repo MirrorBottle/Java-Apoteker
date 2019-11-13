@@ -37,6 +37,7 @@ public class ObatCreateFrame extends javax.swing.JFrame {
         merk_textbox.setText("");
         dosis_spinner.setValue(0);
         composition_textarea.setText("");
+        harga_spinner.setValue(0);
     }
 
     private void clearValidation() {
@@ -250,7 +251,7 @@ public class ObatCreateFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(harga_spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(harga_spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(submit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(add_to_gudang_checkbox))
                 .addContainerGap(201, Short.MAX_VALUE))
@@ -320,7 +321,6 @@ public class ObatCreateFrame extends javax.swing.JFrame {
         } else if (composition_textarea.getText().equals("")) {
             compotition_invalid_text.setText("Komposisi wajib diisi!");
         } else {
-
             this.clearValidation();
             String nama_obat = name_textbox.getText();
             String merk_obat = merk_textbox.getText();
@@ -343,6 +343,7 @@ public class ObatCreateFrame extends javax.swing.JFrame {
                             gudang_result = statement.executeQuery("SELECT * FROM obat WHERE nama_obat = '" + nama_obat + "'");
                             if (gudang_result.next()) {
                                 statement.executeUpdate("INSERT INTO `gudang` (`id_penyimpanan`, `id_obat`, `stock`, `penambahan_terakhir`, `pengambilan_terakhir`) VALUES (NULL, '" + gudang_result.getString("id_obat") + "', '0', '" + today_date + "', '" + today_date + "');");
+                                clearAll();
                             }
                         } catch (Exception e) {
                             JOptionPane.showMessageDialog(null, "Connection error" + e);

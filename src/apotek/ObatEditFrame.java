@@ -40,6 +40,7 @@ public class ObatEditFrame extends javax.swing.JFrame {
                 composition_textarea.setText(result.getString("komposisi_obat"));
                 merk_textbox.setText(result.getString("merk_obat"));
                 dosis_spinner.setValue(Integer.valueOf(dosis[0]));
+                harga_spinner.setValue(Integer.valueOf(result.getString("harga")));
                 dosis_comboBox.setSelectedItem(String.valueOf(dosis[1]));
                 satuan_comboBox.setSelectedItem(result.getString("satuan"));
             } else {
@@ -92,6 +93,8 @@ public class ObatEditFrame extends javax.swing.JFrame {
         compotition_invalid_text = new javax.swing.JLabel();
         dosis_spinner = new javax.swing.JSpinner();
         merk_invalid_text = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        harga_spinner = new javax.swing.JSpinner();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -208,6 +211,11 @@ public class ObatEditFrame extends javax.swing.JFrame {
         merk_invalid_text.setForeground(new java.awt.Color(243, 36, 36));
         merk_invalid_text.setText("                                  ");
 
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
+        jLabel10.setText("Harga Per Satuan : ");
+
+        harga_spinner.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -250,7 +258,11 @@ public class ObatEditFrame extends javax.swing.JFrame {
                                                 .addComponent(dosis_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addComponent(compotition_invalid_text)
                                 .addComponent(merk_invalid_text))
-                            .addGap(11, 11, 11))))
+                            .addGap(11, 11, 11)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(harga_spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(201, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -291,9 +303,13 @@ public class ObatEditFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(satuan_comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(61, 61, 61)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(harga_spinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(submit_btn)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
@@ -318,10 +334,11 @@ public class ObatEditFrame extends javax.swing.JFrame {
             String komposisi_obat = composition_textarea.getText();
             String dosis_obat = String.valueOf(dosis_spinner.getValue()) + " x " + String.valueOf(dosis_comboBox.getSelectedItem());
             String satuan_obat = String.valueOf(satuan_comboBox.getSelectedItem());
+            int harga = Integer.valueOf(String.valueOf(harga_spinner.getValue()));
             try {
                 con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                 statement = con.createStatement();
-                statement.executeUpdate("UPDATE `obat` SET `nama_obat` = '" + nama_obat + "', `komposisi_obat` = '" + komposisi_obat + "', `merk_obat` = '" + merk_obat + "', `dosis_obat` = '" + dosis_obat + "', `satuan` = '" + satuan_obat + "' WHERE `obat`.`id_obat` = " + this.id + ";");
+                statement.executeUpdate("UPDATE `obat` SET `nama_obat` = '" + nama_obat + "', `komposisi_obat` = '" + komposisi_obat + "', `merk_obat` = '" + merk_obat + "', `dosis_obat` = '" + dosis_obat + "', `satuan` = '" + satuan_obat + "', `harga` = '" + harga + "' WHERE `obat`.`id_obat` = " + this.id + ";");
                 JOptionPane.showMessageDialog(null, "Ubah data obat berhasil");
                 new ObatIndexFrame().setVisible(true);
                 this.dispose();
@@ -363,8 +380,10 @@ public class ObatEditFrame extends javax.swing.JFrame {
     private javax.swing.JLabel compotition_invalid_text;
     private javax.swing.JComboBox<String> dosis_comboBox;
     private javax.swing.JSpinner dosis_spinner;
+    private javax.swing.JSpinner harga_spinner;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
