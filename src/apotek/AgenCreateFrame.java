@@ -222,8 +222,8 @@ public class AgenCreateFrame extends javax.swing.JFrame {
                     name_textbox.setText("");
                     email_validate.setText("Nama Sudah Terdaftar!");
                 } else {
-                    statement.executeUpdate("INSERT INTO `agen` ( `nama`) VALUES (NULL, '" + name + "',);");
-                    JOptionPane.showMessageDialog(null, "Registrasi berhasil");
+                    statement.executeUpdate("INSERT INTO `agen` (`id_agen`, `nama`) VALUES (NULL, '" + name + "');");
+                    JOptionPane.showMessageDialog(null, "Agen berhasil ditambahkan berhasil");
                     clearAll();
 
                 }

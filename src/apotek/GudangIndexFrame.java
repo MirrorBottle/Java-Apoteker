@@ -322,7 +322,7 @@ public class GudangIndexFrame extends javax.swing.JFrame {
         int id_penyimpanan = Integer.valueOf(id_penyimpanan_text.getText());
         int increase_stock = Integer.valueOf(String.valueOf(stockSpinner.getValue()));
         int current_stock = original_stock + increase_stock;
-        String todayDate = (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
+        String todayDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
             stock_statement = con.createStatement();
@@ -350,7 +350,7 @@ public class GudangIndexFrame extends javax.swing.JFrame {
         int decrease_stock = Integer.valueOf(String.valueOf(stockSpinner.getValue()));
         if (original_stock > decrease_stock) {
             int current_stock = original_stock - decrease_stock;
-            String todayDate = (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
+            String todayDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate();
             try {
                 con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                 stock_statement = con.createStatement();
