@@ -35,6 +35,7 @@ public class ObatIndexFrame extends javax.swing.JFrame {
 
     public void dataTable() {
         int i = 1;
+        int total_data = 0;
         DefaultTableModel table = new DefaultTableModel();
         table.addColumn("No.");
         table.addColumn("ID Obat");
@@ -49,8 +50,8 @@ public class ObatIndexFrame extends javax.swing.JFrame {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
             statement = con.createStatement();
             result = statement.executeQuery("SELECT * FROM obat");
-
             while (result.next()) {
+                total_data++;
                 table.addRow(new Object[]{
                     i,
                     result.getString("id_obat"),
@@ -64,6 +65,7 @@ public class ObatIndexFrame extends javax.swing.JFrame {
                 i++;
                 obatDataTable.setModel(table);
             }
+            jumlah_text.setText("Jumlah Obat : " + total_data);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Connection error : " + e);
         }
@@ -89,6 +91,7 @@ public class ObatIndexFrame extends javax.swing.JFrame {
         tambah_obat_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         obatDataTable = new javax.swing.JTable();
+        jumlah_text = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,6 +183,9 @@ public class ObatIndexFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(obatDataTable);
 
+        jumlah_text.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jumlah_text.setText("Jumlah Data : ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,7 +203,10 @@ public class ObatIndexFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(hapus_obat_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jumlah_text)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +218,9 @@ public class ObatIndexFrame extends javax.swing.JFrame {
                     .addComponent(ubah_obat_btn)
                     .addComponent(hapus_obat_btn)
                     .addComponent(tambah_obat_btn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jumlah_text)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -305,6 +316,7 @@ public class ObatIndexFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jumlah_text;
     private javax.swing.JTable obatDataTable;
     private javax.swing.JButton tambah_obat_btn;
     private javax.swing.JButton ubah_obat_btn;
