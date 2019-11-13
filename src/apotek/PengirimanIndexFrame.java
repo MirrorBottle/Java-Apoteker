@@ -27,6 +27,12 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
     //Obat Statement and ResultSet
     static Statement obat_statement;
     static ResultSet data_obat;
+    //Agen Statement and ResultSet
+    static Statement agen_statement;
+    static ResultSet data_agen;
+    //Apoteker Statement and ResultSet
+    static Statement apoteker_statement;
+    static ResultSet data_apoteker;
     //Update Stock Statement;
     static Statement stock_statement;
     //Original Stock
@@ -41,53 +47,48 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
 
     }
 
-    private void clearDataToUpdateStock() {
-        obat_name_text.setText(" ");
-        id_penyimpanan_text.setText(" ");
-        stockSpinner.setValue(0);
-        increase_stock_btn.setEnabled(false);
-        decrease_stock_btn.setEnabled(false);
-    }
-
-    private void setDataToUpdateStock() {
-
-        increase_stock_btn.setEnabled(true);
-        decrease_stock_btn.setEnabled(true);
-        String name = String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 2));
-        String id_penyimpanan = String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 1));
-        String[] stock = String.valueOf(obatDataTable.getValueAt(obatDataTable.getSelectedRow(), 3)).split(" ", 2);
-        original_stock = Integer.valueOf(stock[0]);
-        obat_name_text.setText(name);
-        id_penyimpanan_text.setText(id_penyimpanan);
-    }
-
     public void dataTable() {
         int i = 1;
         int total_data = 0;
         DefaultTableModel table = new DefaultTableModel();
         table.addColumn("No.");
-        table.addColumn("ID Penyimpanan");
+        table.addColumn("ID Pengiriman");
+        table.addColumn("Nama Agen");
+        table.addColumn("Apoteker Penerima");
         table.addColumn("Nama Obat");
-        table.addColumn("Stock");
-        table.addColumn("Penambahan Terakhir");
-        table.addColumn("Pengambilan Terakhir");
+        table.addColumn("Total Obat");
+        table.addColumn("Total Biaya");
+        table.addColumn("Tanggal Pengiriman");
         obatDataTable.setModel(table);
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
             statement = con.createStatement();
-            result = statement.executeQuery("SELECT * FROM gudang");
+            result = statement.executeQuery("SELECT * FROM pengiriman_obat");
             while (result.next()) {
                 total_data++;
+
+                //Get data obat with id_obat
                 obat_statement = con.createStatement();
-                data_obat = obat_statement.executeQuery("SELECT * FROM obat JOIN gudang ON obat.id_obat = " + Integer.valueOf(result.getString("id_obat")));
-                if (data_obat.next()) {
+                data_obat = obat_statement.executeQuery("SELECT * FROM obat JOIN pengiriman_obat ON obat.id_obat = " + Integer.valueOf(result.getString("id_obat")));
+
+                //Get data agen with id_agen
+                agen_statement = con.createStatement();
+                data_agen = agen_statement.executeQuery("SELECT * FROM agen JOIN pengiriman_obat ON agen.id_agen = " + Integer.valueOf(result.getString("id_agen")));
+
+                //Get data apoteker with id_apoteker
+                apoteker_statement = con.createStatement();
+                data_apoteker = apoteker_statement.executeQuery("SELECT * FROM apoteker JOIN pengiriman_obat ON apoteker.id_apoteker = " + Integer.valueOf(result.getString("id_apoteker")));
+
+                if (data_obat.next() && data_agen.next() && data_apoteker.next()) {
                     table.addRow(new Object[]{
                         i,
-                        result.getString("id_penyimpanan"),
+                        result.getString("id_pengiriman"),
+                        data_agen.getString("nama"),
+                        data_apoteker.getString("nama"),
                         data_obat.getString("nama_obat"),
-                        result.getString("stock") + " " + data_obat.getString("satuan"),
-                        result.getString("penambahan_terakhir"),
-                        result.getString("pengambilan_terakhir")
+                        result.getString("total_obat"),
+                        "Rp. " + (Integer.valueOf(data_obat.getString("harga")) * Integer.valueOf(result.getString("total_obat"))),
+                        result.getString("tanggal_pengiriman")
                     });
                     i++;
                 }
@@ -117,15 +118,6 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         obatDataTable = new javax.swing.JTable();
         jumlah_text = new javax.swing.JLabel();
-        obat_name_label = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        obat_name_text = new javax.swing.JLabel();
-        stockSpinner = new javax.swing.JSpinner();
-        increase_stock_btn = new javax.swing.JButton();
-        change_stock_btn = new javax.swing.JButton();
-        obat_name_label1 = new javax.swing.JLabel();
-        id_penyimpanan_text = new javax.swing.JLabel();
-        decrease_stock_btn = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,49 +188,6 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
         jumlah_text.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jumlah_text.setText("Jumlah Data : ");
 
-        obat_name_label.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        obat_name_label.setText("ID Penyimpanan : ");
-
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel3.setText("Jumlah :");
-
-        obat_name_text.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        obat_name_text.setText("                                     ");
-
-        stockSpinner.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
-        increase_stock_btn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        increase_stock_btn.setText("Tambahkan");
-        increase_stock_btn.setEnabled(false);
-        increase_stock_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                increase_stock_btnActionPerformed(evt);
-            }
-        });
-
-        change_stock_btn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        change_stock_btn.setText("Ubah Stock");
-        change_stock_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                change_stock_btnActionPerformed(evt);
-            }
-        });
-
-        obat_name_label1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        obat_name_label1.setText("Nama Obat : ");
-
-        id_penyimpanan_text.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        id_penyimpanan_text.setText("                                     ");
-
-        decrease_stock_btn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        decrease_stock_btn.setText("Kurangkan");
-        decrease_stock_btn.setEnabled(false);
-        decrease_stock_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                decrease_stock_btnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -250,37 +199,14 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jumlah_text))
-                                    .addComponent(change_stock_btn))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 610, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(obat_name_label1)
-                                            .addGap(29, 29, 29)
-                                            .addComponent(obat_name_text, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(obat_name_label)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(id_penyimpanan_text, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(stockSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(increase_stock_btn)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(decrease_stock_btn))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(15, 15, 15))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jumlah_text)
+                            .addGap(51, 1007, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(0, 720, Short.MAX_VALUE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,83 +215,14 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jumlah_text)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(obat_name_label)
-                        .addComponent(id_penyimpanan_text)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(change_stock_btn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(obat_name_label1)
-                            .addComponent(obat_name_text))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(stockSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(increase_stock_btn)
-                            .addComponent(decrease_stock_btn))))
-                .addGap(19, 19, 19)
+                .addComponent(jumlah_text)
+                .addGap(87, 87, 87)
                 .addComponent(jScrollPane1)
                 .addGap(33, 33, 33))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void increase_stock_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_increase_stock_btnActionPerformed
-        // TODO add your handling code here:
-        int id_penyimpanan = Integer.valueOf(id_penyimpanan_text.getText());
-        int increase_stock = Integer.valueOf(String.valueOf(stockSpinner.getValue()));
-        int current_stock = original_stock + increase_stock;
-        String todayDate = (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
-            stock_statement = con.createStatement();
-            stock_statement.executeUpdate("UPDATE `gudang` SET `stock` = '" + current_stock + "', penambahan_terakhir = '" + todayDate + "' WHERE `gudang`.`id_penyimpanan` = " + id_penyimpanan);
-            this.clearDataToUpdateStock();
-            JOptionPane.showMessageDialog(null, "Stock obat berhasil ditambahkan");
-            dataTable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Connection error : " + e);
-        }
-    }//GEN-LAST:event_increase_stock_btnActionPerformed
-
-    private void change_stock_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_change_stock_btnActionPerformed
-        // TODO add your handling code here:
-        if (obatDataTable.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
-        } else {
-            this.setDataToUpdateStock();
-        }
-    }//GEN-LAST:event_change_stock_btnActionPerformed
-
-    private void decrease_stock_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decrease_stock_btnActionPerformed
-        // TODO add your handling code here:
-        int id_penyimpanan = Integer.valueOf(id_penyimpanan_text.getText());
-        int decrease_stock = Integer.valueOf(String.valueOf(stockSpinner.getValue()));
-        if (original_stock > decrease_stock) {
-            int current_stock = original_stock - decrease_stock;
-            String todayDate = (date.getYear() + 1900) + "-" + date.getMonth() + "-" + date.getDate();
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
-                stock_statement = con.createStatement();
-                stock_statement.executeUpdate("UPDATE `gudang` SET `stock` = '" + current_stock + "', pengambilan_terakhir = '" + todayDate + "' WHERE `gudang`.`id_penyimpanan` = " + id_penyimpanan);
-                this.clearDataToUpdateStock();
-                JOptionPane.showMessageDialog(null, "Stock obat berhasil dikurangkan");
-                dataTable();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Connection error : " + e);
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Pengurangan stock lebih daripada stock yang ada!");
-        }
-    }//GEN-LAST:event_decrease_stock_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,23 +241,14 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton change_stock_btn;
-    private javax.swing.JButton decrease_stock_btn;
     private javax.swing.JButton gudang_btn;
-    private javax.swing.JLabel id_penyimpanan_text;
-    private javax.swing.JButton increase_stock_btn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jumlah_text;
     private javax.swing.JTable obatDataTable;
-    private javax.swing.JLabel obat_name_label;
-    private javax.swing.JLabel obat_name_label1;
-    private javax.swing.JLabel obat_name_text;
-    private javax.swing.JSpinner stockSpinner;
     // End of variables declaration//GEN-END:variables
 }
