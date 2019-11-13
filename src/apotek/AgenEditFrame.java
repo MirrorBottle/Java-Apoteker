@@ -5,10 +5,10 @@
  */
 package apotek;
 
-import static apotek.ApotekerCreateFrame.con;
+import static apotek.AgenCreateFrame.con;
 import java.sql.*;
 import javax.swing.JOptionPane;
-import apotek.ApotekerIndexFrame;
+import apotek.AgenIndexFrame;
 
 /**
  *

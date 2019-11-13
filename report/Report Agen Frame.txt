@@ -1,0 +1,10 @@
+lapor ada kesalahan dalam frame agen diantarnya :
+- tidak bisa menambah data, ketika button tambah diklik akan muncul pop up bertuliskan
+ seperti gambar yang dilampirkan.
+
+- tidak bisa mengedit data, sama seperti diatas tetapi bukti tidak bisa diberikan karena
+terhalau frame yang tidak bisa diapa-apakan cara mengatasinya hanya di close saat
+pindah tab menggunakan alt+tab
+
+- Frame Pembeli lupa saya hapus saat mau git pull jadi file itu masih bentuk copyan dari
+Agen Frame.
