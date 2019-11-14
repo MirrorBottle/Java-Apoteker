@@ -276,14 +276,14 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
         if (pengiriman_data_table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
-            int choice = JOptionPane.showConfirmDialog(null, "Data yang dihapus tidak bisa dikembalikan kembali.\nData obat yang ada di gudang akan dihapus juga. Yakin?");
+            int choice = JOptionPane.showConfirmDialog(null, "Data yang dihapus tidak bisa dikembalikan kembali ?");
             if (choice == 0) {
                 try {
                     con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                     statement = con.createStatement();
-                    statement.executeUpdate("DELETE FROM `gudang` WHERE `gudang`.`id_obat` = " + Integer.valueOf(String.valueOf(pengiriman_data_table.getValueAt(pengiriman_data_table.getSelectedRow(), 1))));
-                    statement.executeUpdate("DELETE FROM `obat` WHERE `obat`.`id_obat` = " + Integer.valueOf(String.valueOf(pengiriman_data_table.getValueAt(pengiriman_data_table.getSelectedRow(), 1))));
-                    JOptionPane.showMessageDialog(null, "Data obat telah dihapus");
+                    statement.executeUpdate("DELETE FROM `pengiriman_obat` WHERE `pengiriman_obat`.`id_pengiriman` = " + Integer.valueOf(String.valueOf(pengiriman_data_table.getValueAt(pengiriman_data_table.getSelectedRow(), 1))));
+
+                    JOptionPane.showMessageDialog(null, "Data pengiriman telah dihapus");
                     dataTable();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Connection error : " + e);
