@@ -5,11 +5,8 @@
  */
 package apotek;
 
-//Apoteker Frame
-import apotek.ApotekerCreateFrame;
-import apotek.ApotekerEditFrame;
-import static apotek.ObatIndexFrame.con;
-//
+import apotek.PengirimanEditFrame;
+import apotek.PengirimanCreateFrame;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -219,8 +216,8 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addComponent(tambah_pengiriman_btn)
@@ -228,13 +225,11 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
                         .addComponent(ubah_pengiriman_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(hapus_pengiriman_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jumlah_text)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(jumlah_text)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -249,9 +244,9 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
                     .addComponent(hapus_pengiriman_btn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jumlah_text)
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1)
-                .addGap(77, 77, 77))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addGap(218, 218, 218))
         );
 
         pack();
@@ -259,7 +254,7 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
 
     private void tambah_pengiriman_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambah_pengiriman_btnActionPerformed
         // TODO add your handling code here:
-        new ObatCreateFrame().setVisible(true);
+        new PengirimanCreateFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_tambah_pengiriman_btnActionPerformed
 
@@ -268,10 +263,10 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
         if (pengiriman_data_table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
-            ObatEditFrame editObat = new ObatEditFrame();
-            editObat.setId(String.valueOf(pengiriman_data_table.getValueAt(pengiriman_data_table.getSelectedRow(), 1)));
-            editObat.setDefaultData();
-            editObat.setVisible(true);
+            PengirimanEditFrame editPengiriman = new PengirimanEditFrame();
+            editPengiriman.setId(String.valueOf(pengiriman_data_table.getValueAt(pengiriman_data_table.getSelectedRow(), 1)));
+            editPengiriman.setDefaultData();
+            editPengiriman.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_ubah_pengiriman_btnActionPerformed
