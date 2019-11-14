@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2019 at 12:39 AM
+-- Generation Time: Nov 14, 2019 at 11:55 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -87,7 +87,9 @@ CREATE TABLE `gudang` (
 
 INSERT INTO `gudang` (`id_penyimpanan`, `id_obat`, `stock`, `penambahan_terakhir`, `pengambilan_terakhir`) VALUES
 (1, 3, 2525, '2019-10-12', '2019-10-23'),
-(4, 7, 100, '2019-11-13', '2019-11-13');
+(4, 7, 100, '2019-11-13', '2019-11-13'),
+(5, 1, 200, '2019-11-12', '2019-11-14'),
+(6, 2, 800, '2019-11-14', '2019-11-15');
 
 -- --------------------------------------------------------
 
@@ -125,17 +127,16 @@ CREATE TABLE `pembeli` (
   `id_pembeli` int(11) NOT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `alamat` varchar(255) DEFAULT NULL,
-  `tanggal_pembelian` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `tanggal_menerima` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `tanggal_pembelian` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pembeli`
 --
 
-INSERT INTO `pembeli` (`id_pembeli`, `nama`, `alamat`, `tanggal_pembelian`, `tanggal_menerima`) VALUES
-(1, 'Agus Subekti', 'Jl. TIdak Selingkuh', '2019-10-07 00:07:43', '0000-00-00 00:00:00'),
-(2, 'Martha', 'Jl. Kepemilikan', '2019-10-07 00:04:38', '0000-00-00 00:00:00');
+INSERT INTO `pembeli` (`id_pembeli`, `nama`, `alamat`, `tanggal_pembelian`) VALUES
+(1, 'Agus Subekti', 'Jl. TIdak Selingkuh', '2019-10-07 00:07:43'),
+(2, 'Martha', 'Jl. Kepemilikan', '2019-10-07 00:04:38');
 
 -- --------------------------------------------------------
 
@@ -157,7 +158,7 @@ CREATE TABLE `pengiriman_obat` (
 --
 
 INSERT INTO `pengiriman_obat` (`id_pengiriman`, `id_agen`, `id_apoteker`, `tanggal_pengiriman`, `id_obat`, `total_obat`) VALUES
-(1, 1, 2, '2019-10-07', 3, 1000),
+(1, 2, 1, '2019-10-30', 2, 200),
 (2, 1, 2, '2019-10-14', 7, 3000),
 (3, 3, 2, '2019-10-14', 3, 2000);
 
@@ -171,40 +172,21 @@ CREATE TABLE `penjualan_obat` (
   `id_penjualan` int(11) NOT NULL,
   `id_pembeli` int(11) DEFAULT NULL,
   `id_apoteker` int(11) DEFAULT NULL,
-  `id_resep` int(11) DEFAULT NULL,
-  `tanggal_pembelian` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `total_pembelian` int(11) DEFAULT NULL
+  `id_obat` int(11) NOT NULL,
+  `total_obat` int(11) NOT NULL,
+  `keterangan` text NOT NULL,
+  `tanggal_pembelian` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `penjualan_obat`
 --
 
-INSERT INTO `penjualan_obat` (`id_penjualan`, `id_pembeli`, `id_apoteker`, `id_resep`, `tanggal_pembelian`, `total_pembelian`) VALUES
-(1, 1, 2, 3, '2019-10-07 00:15:24', 80000),
-(2, 1, 2, 4, '2019-10-07 00:15:24', 100000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `resep`
---
-
-CREATE TABLE `resep` (
-  `id_resep` int(11) NOT NULL,
-  `id_pembeli` int(11) NOT NULL,
-  `keterangan` text,
-  `id_obat` int(11) DEFAULT NULL,
-  `jumlah_obat` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `resep`
---
-
-INSERT INTO `resep` (`id_resep`, `id_pembeli`, `keterangan`, `id_obat`, `jumlah_obat`) VALUES
-(3, 1, 'Gak perlu tau', 3, 12),
-(4, 1, 'Gak Perlu Tau', 1, 12);
+INSERT INTO `penjualan_obat` (`id_penjualan`, `id_pembeli`, `id_apoteker`, `id_obat`, `total_obat`, `keterangan`, `tanggal_pembelian`) VALUES
+(1, 1, 2, 1, 12, '-', '2019-10-07'),
+(2, 1, 2, 2, 15, '-', '2019-10-07'),
+(3, 2, 2, 3, 12, '-', '2019-11-27'),
+(4, 2, 3, 2, 200, 'Tidak ada keterangan', '2019-11-15');
 
 --
 -- Indexes for dumped tables
@@ -256,15 +238,7 @@ ALTER TABLE `pengiriman_obat`
 ALTER TABLE `penjualan_obat`
   ADD PRIMARY KEY (`id_penjualan`),
   ADD KEY `id_pembeli` (`id_pembeli`),
-  ADD KEY `id_apoteker` (`id_apoteker`,`id_resep`),
-  ADD KEY `id_resep` (`id_resep`);
-
---
--- Indexes for table `resep`
---
-ALTER TABLE `resep`
-  ADD PRIMARY KEY (`id_resep`),
-  ADD KEY `id_pembeli` (`id_pembeli`,`id_obat`),
+  ADD KEY `id_apoteker` (`id_apoteker`),
   ADD KEY `id_obat` (`id_obat`);
 
 --
@@ -287,7 +261,7 @@ ALTER TABLE `apoteker`
 -- AUTO_INCREMENT for table `gudang`
 --
 ALTER TABLE `gudang`
-  MODIFY `id_penyimpanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_penyimpanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `obat`
@@ -311,13 +285,7 @@ ALTER TABLE `pengiriman_obat`
 -- AUTO_INCREMENT for table `penjualan_obat`
 --
 ALTER TABLE `penjualan_obat`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `resep`
---
-ALTER TABLE `resep`
-  MODIFY `id_resep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -343,14 +311,7 @@ ALTER TABLE `pengiriman_obat`
 ALTER TABLE `penjualan_obat`
   ADD CONSTRAINT `penjualan_obat_ibfk_1` FOREIGN KEY (`id_pembeli`) REFERENCES `pembeli` (`id_pembeli`),
   ADD CONSTRAINT `penjualan_obat_ibfk_2` FOREIGN KEY (`id_apoteker`) REFERENCES `apoteker` (`id_apoteker`),
-  ADD CONSTRAINT `penjualan_obat_ibfk_3` FOREIGN KEY (`id_resep`) REFERENCES `resep` (`id_resep`);
-
---
--- Constraints for table `resep`
---
-ALTER TABLE `resep`
-  ADD CONSTRAINT `resep_ibfk_1` FOREIGN KEY (`id_pembeli`) REFERENCES `pembeli` (`id_pembeli`),
-  ADD CONSTRAINT `resep_ibfk_2` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`);
+  ADD CONSTRAINT `penjualan_obat_ibfk_4` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
