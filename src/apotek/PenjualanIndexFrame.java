@@ -16,7 +16,7 @@ import java.util.Date;
  *
  * @author BAYU
  */
-public class PengirimanIndexFrame extends javax.swing.JFrame {
+public class PenjualanIndexFrame extends javax.swing.JFrame {
 
     static Date date = new Date();
     static Connection con;
@@ -26,8 +26,8 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
     static Statement obat_statement;
     static ResultSet data_obat;
     //Agen Statement and ResultSet
-    static Statement agen_statement;
-    static ResultSet data_agen;
+    static Statement pembeli_statement;
+    static ResultSet data_pembeli;
     //Apoteker Statement and ResultSet
     static Statement apoteker_statement;
     static ResultSet data_apoteker;
@@ -35,7 +35,7 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
     /**
      * Creates new form dashboardFrame
      */
-    public PengirimanIndexFrame() {
+    public PenjualanIndexFrame() {
         initComponents();
         dataTable();
 
@@ -46,43 +46,44 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
         int total_data = 0;
         DefaultTableModel table = new DefaultTableModel();
         table.addColumn("No.");
-        table.addColumn("ID Pengiriman");
-        table.addColumn("Nama Agen");
-        table.addColumn("Apoteker Penerima");
+        table.addColumn("ID Penjualan");
+        table.addColumn("Nama Pembeli");
+        table.addColumn("Apoteker Penjual");
         table.addColumn("Nama Obat");
         table.addColumn("Total Obat");
         table.addColumn("Total Biaya");
-        table.addColumn("Tanggal Pengiriman");
+        table.addColumn("Keterangan");
+        table.addColumn("Tanggal Pembelian");
         pengiriman_data_table.setModel(table);
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
             statement = con.createStatement();
-            result = statement.executeQuery("SELECT * FROM pengiriman_obat");
+            result = statement.executeQuery("SELECT * FROM penjualan_obat");
             while (result.next()) {
                 total_data++;
-
                 //Get data obat with id_obat
                 obat_statement = con.createStatement();
                 data_obat = obat_statement.executeQuery("SELECT * FROM obat JOIN pengiriman_obat ON obat.id_obat = " + Integer.valueOf(result.getString("id_obat")));
 
                 //Get data agen with id_agen
-                agen_statement = con.createStatement();
-                data_agen = agen_statement.executeQuery("SELECT * FROM agen JOIN pengiriman_obat ON agen.id_agen = " + Integer.valueOf(result.getString("id_agen")));
+                pembeli_statement = con.createStatement();
+                data_pembeli = pembeli_statement.executeQuery("SELECT * FROM pembeli JOIN pengiriman_obat ON pembeli.id_pembeli = " + Integer.valueOf(result.getString("id_pembeli")));
 
                 //Get data apoteker with id_apoteker
                 apoteker_statement = con.createStatement();
                 data_apoteker = apoteker_statement.executeQuery("SELECT * FROM apoteker JOIN pengiriman_obat ON apoteker.id_apoteker = " + Integer.valueOf(result.getString("id_apoteker")));
 
-                if (data_obat.next() && data_agen.next() && data_apoteker.next()) {
+                if (data_obat.next() && data_pembeli.next() && data_apoteker.next()) {
                     table.addRow(new Object[]{
                         i,
-                        result.getString("id_pengiriman"),
-                        data_agen.getString("nama"),
+                        result.getString("id_penjualan"),
+                        data_pembeli.getString("nama"),
                         data_apoteker.getString("nama"),
                         data_obat.getString("nama_obat"),
                         result.getString("total_obat"),
                         "Rp. " + (Integer.valueOf(data_obat.getString("harga")) * Integer.valueOf(result.getString("total_obat"))),
-                        result.getString("tanggal_pengiriman")
+                        result.getString("keterangan"),
+                        result.getString("tanggal_pembelian")
                     });
                     i++;
                 }
@@ -303,7 +304,7 @@ public class PengirimanIndexFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new PengirimanIndexFrame().setVisible(true);
+                new PenjualanIndexFrame().setVisible(true);
 
             }
         });
