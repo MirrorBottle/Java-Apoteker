@@ -147,7 +147,7 @@ public class ApotekerCreateFrame extends javax.swing.JFrame {
         jLabel7.setText("Jenis Kelamin : ");
 
         gender_comboBox.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        gender_comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan", " " }));
+        gender_comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
         gender_comboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gender_comboBoxActionPerformed(evt);

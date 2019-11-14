@@ -35,7 +35,7 @@ public class ApotekerIndexFrame extends javax.swing.JFrame {
         int i = 1;
         DefaultTableModel table = new DefaultTableModel();
         table.addColumn("No.");
-        table.addColumn("Agen ID");
+        table.addColumn("ID Apoteker");
         table.addColumn("Nama");
         table.addColumn("Alamat");
         table.addColumn("Email");

@@ -125,7 +125,7 @@ public class AgenEditFrame extends javax.swing.JFrame {
         jLabel1.setText("Manajemen Agen");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        jLabel2.setText("Tambah Data Agen");
+        jLabel2.setText("Edit Data Agen");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
         jLabel3.setText("Nama : ");
@@ -243,7 +243,7 @@ public class AgenEditFrame extends javax.swing.JFrame {
             try {
                 con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                 statement = con.createStatement();
-                statement.executeUpdate("UPDATE `agen` SET `nama` = '" + name + ".`id_agen` = " + this.getId() + ";");
+                statement.executeUpdate("UPDATE `agen` SET `nama` = '" + name + "' WHERE `agen`.`id_agen` = " + this.getId() + ";");
                 JOptionPane.showMessageDialog(null, "Data berhasil  diubah");
                 new AgenIndexFrame().setVisible(true);
                 this.dispose();

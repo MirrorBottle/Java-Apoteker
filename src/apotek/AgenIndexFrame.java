@@ -71,9 +71,9 @@ public class AgenIndexFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        ubah_apoteker_btn = new javax.swing.JButton();
-        hapus_apoteker_btn = new javax.swing.JButton();
-        tambah_apoteker_btn = new javax.swing.JButton();
+        ubah_agen_btn = new javax.swing.JButton();
+        hapus_agen_btn = new javax.swing.JButton();
+        tambah_agen_btn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         agen_data_table = new javax.swing.JTable();
 
@@ -123,27 +123,27 @@ public class AgenIndexFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
         jLabel1.setText("Manajemen Agen");
 
-        ubah_apoteker_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        ubah_apoteker_btn.setText("Ubah");
-        ubah_apoteker_btn.addActionListener(new java.awt.event.ActionListener() {
+        ubah_agen_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        ubah_agen_btn.setText("Ubah");
+        ubah_agen_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ubah_apoteker_btnActionPerformed(evt);
+                ubah_agen_btnActionPerformed(evt);
             }
         });
 
-        hapus_apoteker_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        hapus_apoteker_btn.setText("Hapus");
-        hapus_apoteker_btn.addActionListener(new java.awt.event.ActionListener() {
+        hapus_agen_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        hapus_agen_btn.setText("Hapus");
+        hapus_agen_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapus_apoteker_btnActionPerformed(evt);
+                hapus_agen_btnActionPerformed(evt);
             }
         });
 
-        tambah_apoteker_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        tambah_apoteker_btn.setText("Tambah");
-        tambah_apoteker_btn.addActionListener(new java.awt.event.ActionListener() {
+        tambah_agen_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        tambah_agen_btn.setText("Tambah");
+        tambah_agen_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambah_apoteker_btnActionPerformed(evt);
+                tambah_agen_btnActionPerformed(evt);
             }
         });
 
@@ -172,11 +172,11 @@ public class AgenIndexFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
-                        .addComponent(tambah_apoteker_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tambah_agen_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ubah_apoteker_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ubah_agen_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(hapus_apoteker_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(hapus_agen_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addGap(15, 15, 15))
         );
@@ -187,9 +187,9 @@ public class AgenIndexFrame extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(ubah_apoteker_btn)
-                    .addComponent(hapus_apoteker_btn)
-                    .addComponent(tambah_apoteker_btn))
+                    .addComponent(ubah_agen_btn)
+                    .addComponent(hapus_agen_btn)
+                    .addComponent(tambah_agen_btn))
                 .addGap(73, 73, 73)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -198,7 +198,7 @@ public class AgenIndexFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ubah_apoteker_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubah_apoteker_btnActionPerformed
+    private void ubah_agen_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubah_agen_btnActionPerformed
         // TODO add your handling code here:
         if (agen_data_table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
@@ -209,9 +209,9 @@ public class AgenIndexFrame extends javax.swing.JFrame {
             editAgen.setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_ubah_apoteker_btnActionPerformed
+    }//GEN-LAST:event_ubah_agen_btnActionPerformed
 
-    private void hapus_apoteker_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapus_apoteker_btnActionPerformed
+    private void hapus_agen_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapus_agen_btnActionPerformed
         if (agen_data_table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
@@ -220,7 +220,7 @@ public class AgenIndexFrame extends javax.swing.JFrame {
                 try {
                     con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                     statement = con.createStatement();
-                    statement.executeUpdate("DELETE FROM `apoteker` WHERE `agen`.`id_agen` = " + Integer.valueOf(String.valueOf(agen_data_table.getValueAt(agen_data_table.getSelectedRow(), 1))));
+                    statement.executeUpdate("DELETE FROM `agen` WHERE `agen`.`id_agen` = " + Integer.valueOf(String.valueOf(agen_data_table.getValueAt(agen_data_table.getSelectedRow(), 1))));
                     JOptionPane.showMessageDialog(null, "Data agen telah dihapus");
                     dataTable();
                 } catch (Exception e) {
@@ -230,12 +230,12 @@ public class AgenIndexFrame extends javax.swing.JFrame {
             }
         }
 
-    }//GEN-LAST:event_hapus_apoteker_btnActionPerformed
+    }//GEN-LAST:event_hapus_agen_btnActionPerformed
 
-    private void tambah_apoteker_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambah_apoteker_btnActionPerformed
+    private void tambah_agen_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambah_agen_btnActionPerformed
         new AgenCreateFrame().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_tambah_apoteker_btnActionPerformed
+    }//GEN-LAST:event_tambah_agen_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,14 +278,14 @@ public class AgenIndexFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable agen_data_table;
-    private javax.swing.JButton hapus_apoteker_btn;
+    private javax.swing.JButton hapus_agen_btn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton tambah_apoteker_btn;
-    private javax.swing.JButton ubah_apoteker_btn;
+    private javax.swing.JButton tambah_agen_btn;
+    private javax.swing.JButton ubah_agen_btn;
     // End of variables declaration//GEN-END:variables
 }
