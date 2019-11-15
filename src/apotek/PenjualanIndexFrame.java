@@ -7,6 +7,8 @@ package apotek;
 
 import apotek.PengirimanEditFrame;
 import apotek.PengirimanCreateFrame;
+import apotek.PenjualanEditFrame;
+import apotek.PenjualanCreateFrame;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -54,7 +56,7 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
         table.addColumn("Total Biaya");
         table.addColumn("Keterangan");
         table.addColumn("Tanggal Pembelian");
-        pengiriman_data_table.setModel(table);
+        penjualan_data_table.setModel(table);
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
             statement = con.createStatement();
@@ -87,7 +89,7 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
                     });
                     i++;
                 }
-                pengiriman_data_table.setModel(table);
+                penjualan_data_table.setModel(table);
             }
             jumlah_text.setText("Jumlah Data Pengiriman : " + total_data);
         } catch (Exception e) {
@@ -111,11 +113,11 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
         gudang_btn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        pengiriman_data_table = new javax.swing.JTable();
+        penjualan_data_table = new javax.swing.JTable();
         jumlah_text = new javax.swing.JLabel();
-        tambah_pengiriman_btn = new javax.swing.JButton();
-        ubah_pengiriman_btn = new javax.swing.JButton();
-        hapus_pengiriman_btn = new javax.swing.JButton();
+        tambah_penjualan_btn = new javax.swing.JButton();
+        ubah_penjualan_btn = new javax.swing.JButton();
+        hapus_penjualan_btn = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -169,8 +171,8 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
         jLabel1.setText("Manajemen Pengiriman Obat");
 
-        pengiriman_data_table.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        pengiriman_data_table.setModel(new javax.swing.table.DefaultTableModel(
+        penjualan_data_table.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        penjualan_data_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -181,32 +183,32 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(pengiriman_data_table);
+        jScrollPane1.setViewportView(penjualan_data_table);
 
         jumlah_text.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jumlah_text.setText("Jumlah Data : ");
 
-        tambah_pengiriman_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        tambah_pengiriman_btn.setText("Tambah");
-        tambah_pengiriman_btn.addActionListener(new java.awt.event.ActionListener() {
+        tambah_penjualan_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        tambah_penjualan_btn.setText("Tambah");
+        tambah_penjualan_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambah_pengiriman_btnActionPerformed(evt);
+                tambah_penjualan_btnActionPerformed(evt);
             }
         });
 
-        ubah_pengiriman_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        ubah_pengiriman_btn.setText("Ubah");
-        ubah_pengiriman_btn.addActionListener(new java.awt.event.ActionListener() {
+        ubah_penjualan_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        ubah_penjualan_btn.setText("Ubah");
+        ubah_penjualan_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ubah_pengiriman_btnActionPerformed(evt);
+                ubah_penjualan_btnActionPerformed(evt);
             }
         });
 
-        hapus_pengiriman_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        hapus_pengiriman_btn.setText("Hapus");
-        hapus_pengiriman_btn.addActionListener(new java.awt.event.ActionListener() {
+        hapus_penjualan_btn.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        hapus_penjualan_btn.setText("Hapus");
+        hapus_penjualan_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapus_pengiriman_btnActionPerformed(evt);
+                hapus_penjualan_btnActionPerformed(evt);
             }
         });
 
@@ -221,11 +223,11 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                        .addComponent(tambah_pengiriman_btn)
+                        .addComponent(tambah_penjualan_btn)
                         .addGap(12, 12, 12)
-                        .addComponent(ubah_pengiriman_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ubah_penjualan_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(hapus_pengiriman_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(hapus_penjualan_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jumlah_text)
@@ -240,9 +242,9 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(tambah_pengiriman_btn)
-                    .addComponent(ubah_pengiriman_btn)
-                    .addComponent(hapus_pengiriman_btn))
+                    .addComponent(tambah_penjualan_btn)
+                    .addComponent(ubah_penjualan_btn)
+                    .addComponent(hapus_penjualan_btn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jumlah_text)
                 .addGap(18, 18, 18)
@@ -253,28 +255,30 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tambah_pengiriman_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambah_pengiriman_btnActionPerformed
+    private void tambah_penjualan_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambah_penjualan_btnActionPerformed
         // TODO add your handling code here:
-        new PengirimanCreateFrame().setVisible(true);
+        new PenjualanCreateFrame().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_tambah_pengiriman_btnActionPerformed
+    }//GEN-LAST:event_tambah_penjualan_btnActionPerformed
 
-    private void ubah_pengiriman_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubah_pengiriman_btnActionPerformed
+    private void ubah_penjualan_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubah_penjualan_btnActionPerformed
         // TODO add your handling code here:
-        if (pengiriman_data_table.getSelectedRow() == -1) {
+        if (penjualan_data_table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
-            PengirimanEditFrame editPengiriman = new PengirimanEditFrame();
-            editPengiriman.setId(String.valueOf(pengiriman_data_table.getValueAt(pengiriman_data_table.getSelectedRow(), 1)));
-            editPengiriman.setDefaultData();
-            editPengiriman.setVisible(true);
+            PenjualanEditFrame edit_penjualan = new PenjualanEditFrame();
+            edit_penjualan.setId(String.valueOf(penjualan_data_table.getValueAt(penjualan_data_table.getSelectedRow(), 1)));
+            edit_penjualan.setDefaultData();
+            JOptionPane.showMessageDialog(null, edit_penjualan.getId());
+
+            edit_penjualan.setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_ubah_pengiriman_btnActionPerformed
+    }//GEN-LAST:event_ubah_penjualan_btnActionPerformed
 
-    private void hapus_pengiriman_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapus_pengiriman_btnActionPerformed
+    private void hapus_penjualan_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapus_penjualan_btnActionPerformed
         // TODO add your handling code here:
-        if (pengiriman_data_table.getSelectedRow() == -1) {
+        if (penjualan_data_table.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Pilih baris terlebih dahulu!");
         } else {
             int choice = JOptionPane.showConfirmDialog(null, "Data yang dihapus tidak bisa dikembalikan kembali ?");
@@ -282,9 +286,9 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
                 try {
                     con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                     statement = con.createStatement();
-                    statement.executeUpdate("DELETE FROM `pengiriman_obat` WHERE `pengiriman_obat`.`id_pengiriman` = " + Integer.valueOf(String.valueOf(pengiriman_data_table.getValueAt(pengiriman_data_table.getSelectedRow(), 1))));
+                    statement.executeUpdate("DELETE FROM `penjualan_obat` WHERE `penjualan_obat`.`id_penjualan` = " + Integer.valueOf(String.valueOf(penjualan_data_table.getValueAt(penjualan_data_table.getSelectedRow(), 1))));
 
-                    JOptionPane.showMessageDialog(null, "Data pengiriman telah dihapus");
+                    JOptionPane.showMessageDialog(null, "Data penjualan telah dihapus");
                     dataTable();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Connection error : " + e);
@@ -292,7 +296,7 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
 
             }
         }
-    }//GEN-LAST:event_hapus_pengiriman_btnActionPerformed
+    }//GEN-LAST:event_hapus_penjualan_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,7 +316,7 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton gudang_btn;
-    private javax.swing.JButton hapus_pengiriman_btn;
+    private javax.swing.JButton hapus_penjualan_btn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -320,8 +324,8 @@ public class PenjualanIndexFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jumlah_text;
-    private javax.swing.JTable pengiriman_data_table;
-    private javax.swing.JButton tambah_pengiriman_btn;
-    private javax.swing.JButton ubah_pengiriman_btn;
+    private javax.swing.JTable penjualan_data_table;
+    private javax.swing.JButton tambah_penjualan_btn;
+    private javax.swing.JButton ubah_penjualan_btn;
     // End of variables declaration//GEN-END:variables
 }

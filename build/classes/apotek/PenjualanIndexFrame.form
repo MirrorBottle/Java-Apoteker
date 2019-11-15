@@ -47,11 +47,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="107" max="32767" attributes="0"/>
-                      <Component id="tambah_pengiriman_btn" min="-2" max="-2" attributes="0"/>
+                      <Component id="tambah_penjualan_btn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="ubah_pengiriman_btn" min="-2" pref="138" max="-2" attributes="0"/>
+                      <Component id="ubah_penjualan_btn" min="-2" pref="138" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="hapus_pengiriman_btn" min="-2" pref="138" max="-2" attributes="0"/>
+                      <Component id="hapus_penjualan_btn" min="-2" pref="138" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
@@ -71,9 +71,9 @@
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tambah_pengiriman_btn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ubah_pengiriman_btn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="hapus_pengiriman_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tambah_penjualan_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ubah_penjualan_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="hapus_penjualan_btn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jumlah_text" min="-2" max="-2" attributes="0"/>
@@ -165,7 +165,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="pengiriman_data_table">
+        <Component class="javax.swing.JTable" name="penjualan_data_table">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="0"/>
@@ -190,7 +190,7 @@
         <Property name="text" type="java.lang.String" value="Jumlah Data : "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="tambah_pengiriman_btn">
+    <Component class="javax.swing.JButton" name="tambah_penjualan_btn">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="30" style="0"/>
@@ -198,10 +198,10 @@
         <Property name="text" type="java.lang.String" value="Tambah"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tambah_pengiriman_btnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tambah_penjualan_btnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="ubah_pengiriman_btn">
+    <Component class="javax.swing.JButton" name="ubah_penjualan_btn">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="30" style="0"/>
@@ -209,10 +209,10 @@
         <Property name="text" type="java.lang.String" value="Ubah"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ubah_pengiriman_btnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ubah_penjualan_btnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="hapus_pengiriman_btn">
+    <Component class="javax.swing.JButton" name="hapus_penjualan_btn">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="30" style="0"/>
@@ -220,7 +220,7 @@
         <Property name="text" type="java.lang.String" value="Hapus"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hapus_pengiriman_btnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hapus_penjualan_btnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
