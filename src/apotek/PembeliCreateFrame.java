@@ -8,13 +8,13 @@ package apotek;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import apotek.AgenIndexFrame;
+import apotek.PembeliIndexFrame;
 
 /**
  *
  * @author BAYU
  */
-public class AgenCreateFrame extends javax.swing.JFrame {
+public class PembeliCreateFrame extends javax.swing.JFrame {
 
     static Connection con;
     static Statement statement;
@@ -23,16 +23,18 @@ public class AgenCreateFrame extends javax.swing.JFrame {
     /**
      * Creates new form dashboardFrame
      */
-    public AgenCreateFrame() {
+    public PembeliCreateFrame() {
         initComponents();
     }
 
     private void clearAll() {
         name_textbox.setText("");
+        address_textarea.setText("");
     }
 
     private void clearValidation() {
         name_validate.setText(" ");
+        address_validate.setText(" ");
     }
 
     /**
@@ -51,6 +53,9 @@ public class AgenCreateFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         name_textbox = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        address_textarea = new javax.swing.JTextArea();
         submit_btn = new javax.swing.JButton();
         email_validate = new javax.swing.JLabel();
         name_validate = new javax.swing.JLabel();
@@ -96,15 +101,23 @@ public class AgenCreateFrame extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
-        jLabel1.setText("Manajemen Agen");
+        jLabel1.setText("Manajemen Pembeli");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
-        jLabel2.setText("Tambah Data Agen");
+        jLabel2.setText("Tambah Data Pembeli");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
-        jLabel3.setText("Nama :");
+        jLabel3.setText("Nama : ");
 
         name_textbox.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
+        jLabel5.setText("Alamat : ");
+
+        address_textarea.setColumns(20);
+        address_textarea.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        address_textarea.setRows(5);
+        jScrollPane1.setViewportView(address_textarea);
 
         submit_btn.setFont(new java.awt.Font("Calibri", 0, 28)); // NOI18N
         submit_btn.setText("Tambah");
@@ -152,9 +165,11 @@ public class AgenCreateFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(submit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(address_validate)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 928, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(phone_validate)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
@@ -167,13 +182,13 @@ public class AgenCreateFrame extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel3)
+                            .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(email_validate)
                                 .addComponent(name_textbox, javax.swing.GroupLayout.PREFERRED_SIZE, 939, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(name_validate)))))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +208,11 @@ public class AgenCreateFrame extends javax.swing.JFrame {
                 .addComponent(name_validate)
                 .addGap(41, 41, 41)
                 .addComponent(email_validate)
-                .addGap(126, 126, 126)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(address_validate)
                 .addGap(44, 44, 44)
                 .addComponent(phone_validate)
@@ -211,21 +230,23 @@ public class AgenCreateFrame extends javax.swing.JFrame {
         // Validation
         if (name_textbox.getText().equals("")) {
             name_validate.setText("Nama wajib diisi!");
+        } else if (address_textarea.getText().equals("")) {
+            address_validate.setText("Alamat wajib diisi!");
         } else {
             this.clearValidation();
             String name = name_textbox.getText();
+            String address = address_textarea.getText();
             try {
                 con = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
                 statement = con.createStatement();
-                result = statement.executeQuery("SELECT * FROM agen WHERE nama = '" + name + "'");
+                result = statement.executeQuery("SELECT * FROM pembeli WHERE nama = '" + name + "'");
                 if (result.next()) {
                     name_textbox.setText("");
                     name_validate.setText("Nama Sudah Terdaftar!");
-                } else {
-                    statement.executeUpdate("INSERT INTO `agen` (`id_agen`, `nama`) VALUES (NULL, '" + name + "');");
-                    JOptionPane.showMessageDialog(null, "Agen berhasil ditambahkan berhasil");
+                }else {
+                    statement.executeUpdate("INSERT INTO `pembeli` (`id_pembeli`, `nama`, `alamat`, `tanggal_pembelian`) VALUES (NULL, '" + name + "', '" + address + "', CURRENT_TIMESTAMP);");
+                    JOptionPane.showMessageDialog(null, "Registrasi berhasil");
                     clearAll();
-
                 }
 
             } catch (Exception e) {
@@ -237,7 +258,7 @@ public class AgenCreateFrame extends javax.swing.JFrame {
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
         // TODO add your handling code here:
-        new AgenIndexFrame().setVisible(true);
+        new PembeliIndexFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_back_btnActionPerformed
 
@@ -287,12 +308,13 @@ public class AgenCreateFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new AgenCreateFrame().setVisible(true);
+                new PembeliCreateFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea address_textarea;
     private javax.swing.JLabel address_validate;
     private javax.swing.JButton back_btn;
     private javax.swing.JLabel email_validate;
@@ -300,8 +322,10 @@ public class AgenCreateFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField name_textbox;
     private javax.swing.JLabel name_validate;
     private javax.swing.JLabel password_validate;
