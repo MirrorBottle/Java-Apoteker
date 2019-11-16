@@ -3,11 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/404Foxy-sama/Documents/Netbeans%20Project/Java-Apoteker/src/apotek/PembeliCreateFrame.java</file>
-            <file>file:/C:/Users/404Foxy-sama/Documents/Netbeans%20Project/Java-Apoteker/src/apotek/ApotekerIndexFrame.java</file>
-            <file>file:/C:/Users/404Foxy-sama/Documents/Netbeans%20Project/Java-Apoteker/src/apotek/AgenCreateFrame.java</file>
-            <file>file:/C:/Users/404Foxy-sama/Documents/Netbeans%20Project/Java-Apoteker/src/apotek/PembeliEditFrame.java</file>
-            <file>file:/C:/Users/404Foxy-sama/Documents/Netbeans%20Project/Java-Apoteker/src/apotek/PembeliIndexFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/AgenIndexFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PenjualanIndexFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PenjualanEditFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/ObatEditFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/AgenEditFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/ApotekerIndexFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PengirimanEditFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PembeliIndexFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/AgenCreateFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PenjualanCreateFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/Apotek.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PengirimanCreateFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/GudangIndexFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/ApotekerCreateFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/LoginFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/ApotekerEditFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PengirimanIndexFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/dashboardTemplate.java</file>
+            <file>file:/D:/Apoteker/src/apotek/ObatIndexFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PembeliCreateFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/PembeliEditFrame.java</file>
+            <file>file:/D:/Apoteker/src/apotek/ObatCreateFrame.java</file>
         </group>
     </open-files>
 </project-private>
