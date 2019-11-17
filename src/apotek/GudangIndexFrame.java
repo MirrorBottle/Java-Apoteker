@@ -149,9 +149,19 @@ public class GudangIndexFrame extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jButton1.setText("Apoteker");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jButton2.setText("Obat");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         gudang_btn.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         gudang_btn.setText("Gudang");
@@ -163,6 +173,11 @@ public class GudangIndexFrame extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jButton3.setText("Agen");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jButton4.setText("Pembeli");
@@ -416,20 +431,39 @@ public class GudangIndexFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_decrease_stock_btnActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        new PembeliIndexFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        new PengirimanIndexFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        new PenjualanIndexFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void gudang_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gudang_btnActionPerformed
-        // TODO add your handling code here:
+        new GudangIndexFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_gudang_btnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new ApotekerIndexFrame().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new AgenIndexFrame().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new ObatIndexFrame().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
