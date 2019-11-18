@@ -39,7 +39,6 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         email_input = new javax.swing.JTextField();
-        register_btn = new javax.swing.JButton();
         submit_btn = new javax.swing.JButton();
         password_input = new javax.swing.JPasswordField();
         email_invalid = new javax.swing.JLabel();
@@ -63,9 +62,6 @@ public class LoginFrame extends javax.swing.JFrame {
                 email_inputActionPerformed(evt);
             }
         });
-
-        register_btn.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        register_btn.setText("Register");
 
         submit_btn.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         submit_btn.setText("Submit");
@@ -94,9 +90,6 @@ public class LoginFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(572, 572, 572))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(register_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(submit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(569, 569, 569))))
             .addGroup(layout.createSequentialGroup()
@@ -116,9 +109,7 @@ public class LoginFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(register_btn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(96, 96, 96)
                 .addComponent(jLabel1)
                 .addGap(81, 81, 81)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -214,7 +205,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField password_input;
     private javax.swing.JLabel password_invalid;
-    private javax.swing.JButton register_btn;
     private javax.swing.JButton submit_btn;
     // End of variables declaration//GEN-END:variables
 }
